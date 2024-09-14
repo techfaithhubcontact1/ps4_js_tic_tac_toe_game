@@ -1,35 +1,33 @@
-
 // select dom elements
-let options = document.querySelectorAll('.game button');
+let btns = document.querySelectorAll('.game button');
 const game = document.querySelector('.game'); 
-const winner = document.querySelector('.winner'); console.log('',winner.className[7])
+const winner = document.querySelector('.winner');
 const tryAgain = document.querySelector('.try_again');
 const reStart = document.querySelector('.restart');
 
 let clickCount = 0;
-
-// put text to elements
-options.forEach((option)=>{
-     option.addEventListener('click',(e)=>{
+// put text into elements
+btns.forEach((btn)=>{
+     btn.addEventListener('click',(e)=>{
           clickCount++;
           switch(clickCount){
-               case 1 : e.target.innerText = "X";
+               case 1 : e.target.innerText = "A";
                break;
-               case 2 : e.target.innerText = "O";
+               case 2 : e.target.innerText = "B";
                break;
-               case 3 : e.target.innerText = "X";
+               case 3 : e.target.innerText = "A";
                break;
-               case 4 : e.target.innerText = "O";
+               case 4 : e.target.innerText = "B";
                break;
-               case 5 : e.target.innerText = "X";
+               case 5 : e.target.innerText = "A";
                break;
-               case 6 : e.target.innerText = "O";
+               case 6 : e.target.innerText = "B";
                break;
-               case 7 : e.target.innerText = "X";
+               case 7 : e.target.innerText = "A";
                break;
-               case 8 : e.target.innerText = "O";
+               case 8 : e.target.innerText = "B";
                break;
-               case 9 : e.target.innerText = "X";
+               case 9 : e.target.innerText = "A";
                break;
                default: '';
                break;
@@ -37,59 +35,36 @@ options.forEach((option)=>{
           // button disabled 
           e.target.disabled = true;
           e.target.classList.add('btn_dis');
-
-          // decides to winner
-          if(options[0].innerText == 'X' && options[1].innerText == 'X' && options[2].innerText == 'X'){
-               Winner("X");
+          // get current value
+          let cv = e.target.innerText;
+          // check x axises
+          if(btns[0].innerText==btns[1].innerText && btns[1].innerText==btns[2].innerText && btns[2].innerText==cv){
+               Winner(cv);
           }
-          if(options[0].innerText == 'O' && options[1].innerText == 'O' && options[2].innerText == 'O'){
-               Winner("O");
+          if(btns[3].innerText==btns[4].innerText && btns[4].innerText==btns[5].innerText && btns[5].innerText==cv){
+               Winner(cv);
           }
-          if(options[3].innerText == 'X' && options[4].innerText == 'X' && options[5].innerText == 'X'){
-               Winner("X");
+          if(btns[6].innerText==btns[7].innerText && btns[7].innerText==btns[8].innerText && btns[8].innerText==cv){
+               Winner(cv);
           }
-          if(options[3].innerText == 'O' && options[4].innerText == 'O' && options[5].innerText == 'O'){
-               Winner("O");
+          // check y axises
+          if(btns[0].innerText==btns[3].innerText && btns[3].innerText==btns[6].innerText && btns[6].innerText==cv){
+               Winner(cv);
           }
-          if(options[6].innerText == 'X' && options[7].innerText == 'X' && options[8].innerText == 'X'){
-               Winner("X");
+          if(btns[1].innerText==btns[4].innerText && btns[4].innerText==btns[7].innerText && btns[7].innerText==cv){
+               Winner(cv);
           }
-          if(options[6].innerText == 'O' && options[7].innerText == 'O' && options[8].innerText == 'O'){
-               Winner("O");
+          if(btns[2].innerText==btns[5].innerText && btns[5].innerText==btns[8].innerText && btns[8].innerText==cv){
+               Winner(cv);
           }
-          
-          if(options[0].innerText == 'X' && options[3].innerText == 'X' && options[6].innerText == 'X'){
-               Winner("X");
+          // check cross axises 
+          if(btns[0].innerText==btns[4].innerText && btns[4].innerText==btns[8].innerText && btns[8].innerText==cv){
+               Winner(cv);
           }
-          if(options[0].innerText == 'O' && options[3].innerText == 'O' && options[6].innerText == 'O'){
-               Winner("O");
+          if(btns[2].innerText==btns[4].innerText && btns[4].innerText==btns[6].innerText && btns[6].innerText==cv){
+               Winner(cv);
           }
-          if(options[1].innerText == 'X' && options[4].innerText == 'X' && options[7].innerText == 'X'){
-               Winner("X");
-          }
-          if(options[1].innerText == 'O' && options[4].innerText == 'O' && options[7].innerText == 'O'){
-               Winner("O");
-          }
-          if(options[2].innerText == 'X' && options[5].innerText == 'X' && options[8].innerText == 'X'){
-               Winner("X");
-          }
-          if(options[2].innerText == 'O' && options[5].innerText == 'O' && options[8].innerText == 'O'){
-               Winner("O");
-          }
-
-          if(options[0].innerText == 'X' && options[4].innerText == 'X' && options[8].innerText == 'X'){
-               Winner("X");
-          }
-          if(options[0].innerText == 'O' && options[4].innerText == 'O' && options[8].innerText == 'O'){
-               Winner("O");
-          }
-          if(options[2].innerText == 'X' && options[4].innerText == 'X' && options[6].innerText == 'X'){
-               Winner("X");
-          }
-          if(options[2].innerText == 'O' && options[4].innerText == 'O' && options[6].innerText == 'O'){
-               Winner("O");
-          }
-
+          //show try again box
           if(clickCount == 9 && winner.className[7] == "h"){
                game.classList.add('hide');
                tryAgain.classList.remove('hide')
@@ -101,10 +76,10 @@ options.forEach((option)=>{
 
 // restart Game
 reStart.addEventListener('click',(e)=>{
-     for(let i = 0; i<options.length; i++){
-          options[i].innerText = '';
-          options[i].disabled = false;
-          options[i].classList.remove('btn_dis');
+     for(let i = 0; i<btns.length; i++){
+          btns[i].innerText = '';
+          btns[i].disabled = false;
+          btns[i].classList.remove('btn_dis');
           clickCount = 0;
           winner.classList.add('hide');
           winner.innerText = ""
@@ -121,3 +96,5 @@ function Winner(val) {
      winner.innerText = val
      game.classList.add('hide');
 }
+
+
